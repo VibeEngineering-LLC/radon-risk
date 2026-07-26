@@ -176,11 +176,17 @@
     color:var(--accent-ink); background:var(--input-bg); border:1px solid var(--line);
     border-radius:9px; padding:10px 15px}
   a.dl:hover{border-color:var(--accent)}
+  /* ── простая версия статьи ── */
+  body.simple blockquote.quote{display:none}
+  body.simple [data-i18n="kDef"],body.simple [data-i18n="alaraDef"]{display:none}
+  body.simple ol.steps .formula{display:none}
+  body.simple ul.hint-list[data-i18n="step6Defs"]{display:none}
 </style>
 </head>
 <body>
 <div class="toolbar">
   <button id="langBtn" title="Language">EN</button>
+  <button id="modeBtn" title="Version">простая версия</button>
   <button id="themeBtn" title="Theme"><span data-i18n="btnTheme">◑ тема</span></button>
 </div>
 <div class="wrap">
@@ -559,6 +565,7 @@ var I18N = {
   ru:{
     title:"Рациональный метод контроля радона — пошаговое описание, схема решения и калькулятор",
     btnTheme:"◑ тема",
+    btnModeSimple:"простая версия", btnModeSci:"научная версия",
     h1:"Рациональный метод контроля радона в помещении",
     sub1:"Пошаговое описание, логическая схема принятия решения и калькулятор надёжности (≥&nbsp;95&nbsp;%) вывода о соответствии нормативу.",
     sub2:"Источники: проект методики радиационного контроля и практическое руководство Цапалова А.В. (АНРИ, 2025, №1(120)).",
@@ -720,6 +727,7 @@ var I18N = {
   en:{
     title:"Rational Method for Indoor Radon Control — step-by-step guide, decision flowchart and calculator",
     btnTheme:"◑ theme",
+    btnModeSimple:"plain version", btnModeSci:"scientific version",
     h1:"Rational Method for Indoor Radon Control",
     sub1:"Step-by-step description, decision-logic flowchart, and a reliability (≥&nbsp;95%) calculator for the compliance decision.",
     sub2:"Sources: the draft radiation-control methodology and practical guide by Tsapalov, A.V. (ANRI, 2025, No.1(120), in Russian).",
@@ -879,18 +887,101 @@ var I18N = {
     errMinRestricted:"Under restricted ventilation the criteria are defined from 2 days (§4.1.5). Increase the duration."
   }
 };
+// Простая версия статьи: словарь накладывается ПОВЕРХ I18N выбранного языка.
+// Ключи, которых здесь нет (калькулятор, таблицы, схема), остаются научными.
+var SIMPLE = {
+  ru:{
+    sub1:"Проверьте свой замер радона: достаточно ли он длился, чтобы доверять выводу.",
+    introH2:"О методе простыми словами",
+    introH3a:"В чём проблема",
+    introP2:"Радон — невидимый радиоактивный газ, который просачивается в дом из земли. Риск для здоровья определяется средним уровнем за год, а прибор показывает лишь то, что происходит сейчас: сегодня газа мало, через неделю — в несколько раз больше, он «дышит» вместе с погодой и проветриванием. Поэтому короткий замер сам по себе ещё ничего не доказывает, а держать прибор в каждой комнате целый год никто не будет. Метод решает именно эту задачу: как сделать надёжный вывод, не измеряя целый год.",
+    introP3:"Экспресс-замеры за полчаса, которые иногда предлагают, не говорят почти ничего: газ слишком изменчив.",
+    introH3b:"Почему нельзя просто прикинуть без прибора",
+    introP1:"Уровень радона не угадать ни по карте, ни по соседям: в одном доме чисто, а в соседнем — превышение. Единственный способ узнать — измерить именно в вашей комнате.",
+    introH3c:"Что делает метод",
+    introP4:"Метод отвечает на один вопрос: хватило ли вашего замера, чтобы сделать вывод. К показанию прибора добавляется запас — на изменчивость газа и на погрешность прибора — и с нормой сравнивается уже эта осторожная оценка. Чем дольше стоял прибор, тем меньше запас.",
+    introP5:"Ответов три: «всё в порядке», «радона много — дом нужно защищать» и «пока непонятно — пусть прибор постоит ещё». Ответ относится к той комнате, где стоял прибор.",
+    introH3d:"Что это даёт вам",
+    introAdv:"<li><b>Обычно хватает 4–7 суток.</b> В большинстве домов радона немного, и недельный замер уже даёт надёжный ответ.</li><li><b>Не нужен дорогой прибор.</b> Для короткого замера точности бытового радон-монитора достаточно.</li><li><b>Ответ с гарантией.</b> Если метод сказал «всё в порядке» или «радона много», вероятность ошибки не больше 5&nbsp;%.</li><li><b>«Пока непонятно» — не провал.</b> Это инструкция: продолжайте измерять, данных пока мало.</li>",
+    introH3e:"О чём помнить",
+    introLim:"<li>Прибор должен стоять правильно: в жилой комнате, не у окна и не у батареи — иначе гарантия не работает.</li><li>Метод оценивает радон — газ из земли; другие источники излучения он не рассматривает.</li><li>Официальное заключение выдаёт только аккредитованная лаборатория. Калькулятор помогает понять ваш результат и решить, нужно ли её приглашать.</li>",
+    dlArticle:"📄 Скачать статью-первоисточник (PDF, для специалистов)",
+    stepsH2:"Как всё сделать — по шагам",
+    stepsIntro:"Коротко и без формул. Научная версия с цитатами первоисточника — по кнопке «научная версия» вверху страницы.",
+    step1H3:"1. Главное — сколько дней мерить",
+    step1P:"Радон постоянно меняется, поэтому важнее всего длительность замера, а не цена прибора. Минимум — 4 дня при обычной жизни в квартире; 2 дня, если помещение стоит закрытым и в нём никто не живёт.",
+    step2H3:"2. Замер — это не взгляд на экран",
+    step2P:"Одно показание ни о чём не говорит. Нужен средний уровень за все дни замера — прибор считает его сам.",
+    step3H3:"3. Живите как обычно",
+    step3P:"Лучший замер — при обычной жизни: проветривайте и открывайте двери как всегда. Режим «всё закрыто» существует для пустых помещений, но он показывает не то, чем вы дышите на самом деле.",
+    step4H3:"4. Куда поставить прибор",
+    step4P:"В комнату, где проводите больше всего времени (спальня, детская), лучше на нижнем этаже — газ идёт из земли. Не на подоконник, не к батарее, не ближе 20 см от стены, на высоте от 0,4 до 2 м. Во время замера прибор не переставлять.",
+    step5H3:"5. Какой прибор подойдёт",
+    step5P:"Для короткого замера годится бытовой радон-монитор. В калькуляторе укажите его погрешность: если точно не знаете — ставьте 30.",
+    step6H3:"6. Что считает калькулятор",
+    step6P:"К вашему среднему значению калькулятор добавляет запас — на изменчивость газа (зависит от длительности замера) и на погрешность прибора — и сравнивает полученную осторожную оценку с нормой.",
+    step7H3:"7. Три возможных ответа",
+    step7P:"«Соответствует» — всё в порядке. «Не соответствует» — радона много, дом нужно защищать (это решаемая задача: герметизация подвала, вентиляция). «Серая зона» — данных пока мало, пусть прибор постоит ещё; если ясности нет и после 9 месяцев, считается, что норма не выполнена.",
+    step8H3:"8. Если нужен документ",
+    step8P:"Официальное заключение оформляет аккредитованная лаборатория. Замер бытовым прибором — способ понять, стоит ли её приглашать."
+  },
+  en:{
+    sub1:"Check your radon measurement: did it run long enough to trust the conclusion.",
+    introH2:"The method in plain words",
+    introH3a:"What the problem is",
+    introP2:"Radon is an invisible radioactive gas that seeps into homes from the ground. The health risk is set by the average level over a year, while the device shows only what is happening now: little gas today, several times more next week — it breathes with the weather and ventilation. So a short measurement by itself proves nothing, and nobody will keep a device in every room for a whole year. The method solves exactly this: how to reach a reliable conclusion without measuring for a year.",
+    introP3:"Half-hour express checks, sometimes offered, tell almost nothing: the gas is too changeable.",
+    introH3b:"Why you cannot just guess without a device",
+    introP1:"You cannot guess the radon level from a map or from the neighbours: one house is fine while the next one is over the limit. The only way to know is to measure in your own room.",
+    introH3c:"What the method does",
+    introP4:"The method answers one question: was your measurement long enough to draw a conclusion. A margin is added to the device reading — for the gas's variability and for the device's error — and it is this cautious estimate that is compared with the limit. The longer the device has been running, the smaller the margin.",
+    introP5:"There are three possible answers: all fine; too much radon — the home needs protection; not clear yet — let the device keep running. The answer applies to the room where the device stood.",
+    introH3d:"What you get",
+    introAdv:"<li><b>4–7 days are usually enough.</b> Most homes have little radon, and a week-long measurement already gives a reliable answer.</li><li><b>No expensive device needed.</b> A consumer radon monitor is accurate enough for a short measurement.</li><li><b>An answer with a guarantee.</b> If the method says fine or not fine, the chance of error is at most 5%.</li><li><b>Not clear yet is not a failure.</b> It is an instruction: keep measuring, the data are not sufficient yet.</li>",
+    introH3e:"Things to keep in mind",
+    introLim:"<li>The device must be placed properly: in a lived-in room, away from windows and radiators — otherwise the guarantee does not hold.</li><li>The method assesses radon, the gas from the ground; it does not cover other radiation sources.</li><li>An official report can only be issued by an accredited laboratory. The calculator helps you understand your result and decide whether to call one.</li>",
+    dlArticle:"📄 Download the source article (PDF, in Russian, for specialists)",
+    stepsH2:"How to do it, step by step",
+    stepsIntro:"Short and formula-free. The scientific version with quotations from the source is available via the button at the top of the page.",
+    step1H3:"1. What matters most is how many days you measure",
+    step1P:"Radon changes all the time, so the duration of the measurement matters more than the price of the device. The minimum is 4 days while living as usual; 2 days if the room stays closed and unoccupied.",
+    step2H3:"2. A measurement is not a glance at the screen",
+    step2P:"A single reading tells nothing. You need the average over all the days of the measurement — the device computes it itself.",
+    step3H3:"3. Live as usual",
+    step3P:"The best measurement is taken during normal life: air the rooms as you always do. The closed-up mode exists for empty premises, but it does not show what you actually breathe.",
+    step4H3:"4. Where to put the device",
+    step4P:"In the room where you spend the most time (bedroom, nursery), preferably on a lower floor — the gas comes from the ground. Not on a windowsill, not next to a radiator, at least 20 cm from the wall, at a height of 0.4–2 m. Do not move the device during the measurement.",
+    step5H3:"5. Which device will do",
+    step5P:"A consumer radon monitor is fine for a short measurement. Enter its uncertainty in the calculator: if unsure, use 30.",
+    step6H3:"6. What the calculator computes",
+    step6P:"It adds a margin to your average — for the gas's variability (depending on duration) and for the device's error — and compares the resulting cautious estimate with the limit.",
+    step7H3:"7. Three possible answers",
+    step7P:"Complies — all fine. Does not comply — too much radon, the home needs protection (a solvable task: sealing the basement, ventilation). Grey zone — not enough data yet, let the device keep running; if there is still no clarity after 9 months, the limit is considered not met.",
+    step8H3:"8. If you need a document",
+    step8P:"An official report is issued by an accredited laboratory. A measurement with a consumer device is the way to find out whether you should call one."
+  }
+};
+var MODE = "sci";
 var LANG = "ru";
 
 function applyLang(lang){
   LANG = lang;
-  var dict = I18N[lang];
+  var dict = {}, k;
+  var base = I18N[lang];
+  for(k in base) dict[k] = base[k];
+  if(MODE === "simple"){
+    var over = SIMPLE[lang];
+    for(k in over) dict[k] = over[k];
+  }
   document.documentElement.setAttribute("lang", lang);
   document.title = dict.title;
   document.querySelectorAll("[data-i18n]").forEach(function(el){
-    var k = el.getAttribute("data-i18n");
-    if(dict[k]!==undefined) el.innerHTML = dict[k];
+    var key = el.getAttribute("data-i18n");
+    if(dict[key]!==undefined) el.innerHTML = dict[key];
   });
   document.getElementById("langBtn").textContent = (lang==="ru") ? "EN" : "RU";
+  document.getElementById("modeBtn").textContent = (MODE==="simple") ? dict.btnModeSci : dict.btnModeSimple;
+  document.body.classList.toggle("simple", MODE==="simple");
   calc();
 }
 
@@ -1031,6 +1122,10 @@ function calc(){
 
 document.getElementById("langBtn").addEventListener("click",function(){
   applyLang(LANG==="ru" ? "en" : "ru");
+});
+document.getElementById("modeBtn").addEventListener("click",function(){
+  MODE = (MODE==="simple") ? "sci" : "simple";
+  applyLang(LANG);
 });
 document.getElementById("themeBtn").addEventListener("click",function(){
   var cur=document.documentElement.getAttribute("data-theme");
