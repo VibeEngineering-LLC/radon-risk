@@ -4,8 +4,12 @@
 по содержанию радона, с пошаговым описанием метода, логической схемой принятия
 решения и первоисточником.
 
-**Калькулятор (GitHub Pages):**
-<https://vibeengineering-llc.github.io/radon-risk/>
+**Калькулятор (GitHub Pages), две версии:**
+- научная — <https://vibeengineering-llc.github.io/radon-risk/> (полный текст
+  с цитатами первоисточника, формулами, Таблицей 1 и разбором критериев);
+- простая — <https://vibeengineering-llc.github.io/radon-risk/simple.html>
+  (то же самое обычным языком, без формул и переменных; упрощённая схема
+  решения). Страницы перекрёстно связаны кнопкой в шапке.
 
 **Первоисточник (PDF):**
 [`article/Tsapalov_2025_ANRI_1-120_metodika-proekt.pdf`](article/Tsapalov_2025_ANRI_1-120_metodika-proekt.pdf)
