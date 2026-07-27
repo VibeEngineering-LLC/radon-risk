@@ -149,15 +149,9 @@
     border-radius:20px; padding:6px 13px; font-size:13px; text-decoration:none}
   .toolbar a:hover{border-color:var(--accent)}
   /* ── пошаговое описание ── */
-  ol.steps{list-style:none; margin:0; padding:0; counter-reset:step}
-  ol.steps>li{counter-increment:step; margin:0 0 20px; padding-left:44px; position:relative}
+  ol.steps{list-style:none; margin:0; padding:0}
+  ol.steps>li{margin:0 0 20px}
   ol.steps>li:last-child{margin-bottom:0}
-  ol.steps>li::before{
-    content:counter(step); position:absolute; left:0; top:1px; width:30px; height:30px;
-    border-radius:50%; background:var(--input-bg); border:1px solid var(--line);
-    color:var(--accent-ink); font-weight:800; font-size:14px; display:flex;
-    align-items:center; justify-content:center;
-  }
   ol.steps>li p{margin:4px 0 0; font-size:14.5px}
   blockquote.quote{
     background:var(--quote-bg); border-left:3px solid var(--accent); margin:10px 0 0;
