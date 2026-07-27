@@ -86,6 +86,7 @@
   .field input[type=number]{width:104px; flex:0 0 104px}
   input:focus,select:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
   select.unit{width:auto; min-width:0; flex:0 1 auto}
+  .unit-static{align-self:center; font-size:15px; color:var(--muted); white-space:nowrap}
   .hint{font-size:12.5px; color:var(--muted); margin:5px 0 0}
   .hint b{color:var(--accent-ink)}
   ul.hint-list{font-size:12.5px; color:var(--muted); margin:4px 0 0; padding-left:18px; text-align:left}
@@ -504,7 +505,7 @@
       <label for="ud" data-i18n="lblUd">Инструментальная неопределённость U<sub>и</sub></label>
       <div class="field">
         <input type="number" id="ud" value="20" min="0" max="95" step="1">
-        <select class="unit" disabled><option data-i18n="unitPct">% (k=2)</option></select>
+        <span class="unit-static" data-i18n="unitPct">% (k=2)</span>
       </div>
       <p class="hint" data-i18n="hintUd">Погрешность калибровки прибора при k=2. При отсутствии данных поверки см. справку ниже: паспортное значение 10&nbsp;% использовать не следует.</p>
     </div>
@@ -1267,6 +1268,12 @@ function calc(){
       noteHtml+
       warnHtml+
     '</div>';
+}
+
+if(MODE === "simple"){
+  // бытовые приборы показывают ОА; ЭРОА в простой версии только путает
+  var eroaOpt = document.querySelector('#ctUnit option[value="eroa"]');
+  if(eroaOpt) eroaOpt.parentNode.removeChild(eroaOpt);
 }
 
 ["mode","ct","ctUnit","dur","durUnit","rl","rlUnit","ud"].forEach(function(id){
