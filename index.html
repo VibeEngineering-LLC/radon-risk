@@ -428,12 +428,12 @@
     <text class="fc-edge" x="432" y="642" data-i18n="fcYes">да</text>
 
     <rect class="fc-rect" x="110" y="15" width="340" height="55" rx="10"/>
-    <text class="fc-text" x="280" y="37" data-i18n="fcsStart1">Прибор измерил средний уровень радона</text>
-    <text class="fc-text fc-small" x="280" y="55" data-i18n="fcsStart2">за несколько суток или месяцев</text>
+    <text class="fc-text" x="280" y="37" data-i18n="fcsStart1">Измерьте радон: прибор стоит в комнате</text>
+    <text class="fc-text fc-small" x="280" y="55" data-i18n="fcsStart2">несколько суток и сам считает средний уровень</text>
 
     <rect class="fc-rect" x="110" y="105" width="340" height="55" rx="10"/>
-    <text class="fc-text" x="280" y="127" data-i18n="fcsMargin1">К результату добавляется запас</text>
-    <text class="fc-text fc-small" x="280" y="145" data-i18n="fcsMargin2">на изменчивость газа и на погрешность прибора</text>
+    <text class="fc-text" x="280" y="127" data-i18n="fcsMargin1">Введите данные в калькулятор — он сам добавит</text>
+    <text class="fc-text fc-small" x="280" y="145" data-i18n="fcsMargin2">запас на изменчивость газа и на погрешность прибора</text>
 
     <polygon class="fc-decision" points="280,190 420,260 280,330 140,260"/>
     <text class="fc-text" x="280" y="253" data-i18n="fcsD1a">Даже с запасом</text>
@@ -736,8 +736,8 @@ var I18N = {
     fcsLoop:"прибор продолжает мерить",
     fcC2:"§7.1.3 — долгосрочный тест 2–12 мес.",
     fcC3:"либо меры по снижению ОА радона (ALARA)",
-    fcsStart1:"Прибор измерил средний уровень радона", fcsStart2:"за несколько суток или месяцев",
-    fcsMargin1:"К результату добавляется запас", fcsMargin2:"на изменчивость газа и на погрешность прибора",
+    fcsStart1:"Измерьте радон: прибор стоит в комнате", fcsStart2:"несколько суток и сам считает средний уровень",
+    fcsMargin1:"Введите данные в калькулятор — он сам добавит", fcsMargin2:"запас на изменчивость газа и на погрешность прибора",
     fcsD1a:"Даже с запасом", fcsD1b:"ниже нормы?",
     fcsA1:"Всё в порядке", fcsA2:"дом защищать не нужно",
     fcsD2a:"Выше нормы даже по", fcsD2b:"осторожной нижней оценке?",
@@ -908,8 +908,8 @@ var I18N = {
     fcsLoop:"the device keeps measuring",
     fcC2:"§7.1.3 — long-term test 2–12 months,",
     fcC3:"or radon-reduction measures (ALARA)",
-    fcsStart1:"The device measured the average radon level", fcsStart2:"over several days or months",
-    fcsMargin1:"A margin is added to the result", fcsMargin2:"for the gas's variability and the device's error",
+    fcsStart1:"Measure the radon: the device stays in the room", fcsStart2:"for several days and computes the average itself",
+    fcsMargin1:"Enter the numbers into the calculator — it will add", fcsMargin2:"the margin for the gas's variability and the device's error",
     fcsD1a:"Below the limit", fcsD1b:"even with the margin?",
     fcsA1:"All fine", fcsA2:"no protection needed",
     fcsD2a:"Above the limit even by the", fcsD2b:"cautious lower estimate?",
@@ -991,11 +991,11 @@ var SIMPLE = {
     title:"Радон в доме: проверьте свой замер — просто о методе",
     sub1:"Проверьте свой замер радона: достаточно ли он длился, чтобы доверять выводу.",
     introH2:"О методе простыми словами",
-    introH3a:"В чём проблема",
+    introH3a:"Почему нельзя просто прикинуть без прибора",
     introP2:"Радон — невидимый радиоактивный газ, который просачивается в дом из земли. Риск для здоровья определяется средним уровнем за год, а прибор показывает лишь то, что происходит сейчас: сегодня газа мало, через неделю — в несколько раз больше, он «дышит» вместе с погодой и проветриванием. Поэтому короткий замер сам по себе ещё ничего не доказывает, а держать прибор в каждой комнате целый год никто не будет. Метод решает именно эту задачу: как сделать надёжный вывод, не измеряя целый год.",
     introP3:"Экспресс-замеры за полчаса, которые иногда предлагают, не говорят почти ничего: газ слишком изменчив.",
-    introH3b:"Почему нельзя просто прикинуть без прибора",
-    introP1:"Уровень радона не угадать ни по карте, ни по соседям: в одном доме чисто, а в соседнем — превышение. Единственный способ узнать — измерить именно в вашей комнате.",
+    introH3b:"В чём проблема",
+    introP1:"Заранее оценить уровень радона в конкретном помещении нельзя. Карты радоноопасности и обследования территорий дают средний уровень по району, а концентрация в отдельном доме определяется его собственными условиями: грунтом под фундаментом, путями поступления газа из земли, вентиляцией. Поэтому здания с высоким уровнем радона регулярно обнаруживают и там, где район в целом благополучен, и даже соседние дома могут отличаться в разы. Единственный способ узнать уровень в своей комнате — измерить именно в ней.",
     introH3c:"Что делает метод",
     introP4:"Метод отвечает на один вопрос: хватило ли вашего замера, чтобы сделать вывод. К показанию прибора добавляется запас — на изменчивость газа и на погрешность прибора — и с нормой сравнивается уже эта осторожная оценка. Чем дольше стоял прибор, тем меньше запас.",
     introP5:"Ответов три: «всё в порядке», «радона много — дом нужно защищать» и «пока непонятно — пусть прибор постоит ещё». Ответ относится к той комнате, где стоял прибор.",
@@ -1054,11 +1054,11 @@ var SIMPLE = {
     title:"Radon at home: check your measurement — the plain version",
     sub1:"Check your radon measurement: did it run long enough to trust the conclusion.",
     introH2:"The method in plain words",
-    introH3a:"What the problem is",
+    introH3a:"Why you cannot just guess without a device",
     introP2:"Radon is an invisible radioactive gas that seeps into homes from the ground. The health risk is set by the average level over a year, while the device shows only what is happening now: little gas today, several times more next week — it breathes with the weather and ventilation. So a short measurement by itself proves nothing, and nobody will keep a device in every room for a whole year. The method solves exactly this: how to reach a reliable conclusion without measuring for a year.",
     introP3:"Half-hour express checks, sometimes offered, tell almost nothing: the gas is too changeable.",
-    introH3b:"Why you cannot just guess without a device",
-    introP1:"You cannot guess the radon level from a map or from the neighbours: one house is fine while the next one is over the limit. The only way to know is to measure in your own room.",
+    introH3b:"What the problem is",
+    introP1:"The radon level in a particular room cannot be estimated in advance. Radon-risk maps and territorial surveys give the average for an area, while the concentration in an individual house is set by its own conditions: the ground under the foundation, the entry paths of the gas, the ventilation. That is why houses with high radon are regularly found even in areas that look fine on average, and even neighbouring houses can differ several-fold. The only way to know the level in your room is to measure in that room.",
     introH3c:"What the method does",
     introP4:"The method answers one question: was your measurement long enough to draw a conclusion. A margin is added to the device reading — for the gas's variability and for the device's error — and it is this cautious estimate that is compared with the limit. The longer the device has been running, the smaller the margin.",
     introP5:"There are three possible answers: all fine; too much radon — the home needs protection; not clear yet — let the device keep running. The answer applies to the room where the device stood.",
