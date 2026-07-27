@@ -108,16 +108,6 @@
   .chip{font-size:13px; background:var(--card); border:1px solid var(--line);
     border-radius:8px; padding:6px 11px; font-variant-numeric:tabular-nums}
   .chip b{color:var(--accent-ink)}
-  .rl-presets{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px}
-  .rl-preset{font-size:12.5px; background:var(--card); color:var(--ink);
-    border:1px solid var(--line); border-radius:20px; padding:5px 12px;
-    cursor:pointer; display:inline-flex; align-items:center; gap:6px; font-family:inherit}
-  .rl-preset:hover{border-color:var(--accent)}
-  .rl-preset.active{border-color:var(--accent); background:var(--quote-bg);
-    color:var(--accent-ink); font-weight:700}
-  .rl-preset-tag{font-size:10px; font-weight:800; text-transform:uppercase;
-    letter-spacing:.04em; color:var(--accent-ink)}
-  .rl-preset.active .rl-preset-tag{opacity:.85}
   .err{color:var(--bad-ink); font-size:14px; margin-top:16px; font-weight:600}
   .work{margin-top:15px; border-top:1px solid var(--line); padding-top:12px}
   .work h4{font-size:12px; margin:0 0 9px; color:var(--muted); font-weight:700;
@@ -516,18 +506,24 @@
     <div>
       <label for="rl" data-i18n="lblRl">Норматив C<sub>ну</sub></label>
       <div class="field">
-        <input type="number" id="rl" value="200" min="1" step="1">
-        <select class="unit" id="rlUnit">
-          <option value="bq" selected data-i18n="unitBqOA">Бк/м³ (ОА)</option>
-          <option value="eroa" data-i18n="unitEROA">Бк/м³ (ЭРОА)</option>
-          <option value="pci" data-i18n="unitPci">pCi/L</option>
+        <select id="rl">
+          <optgroup id="rlGroupRF" label="Россия (НРБ-99/2009)">
+            <option value="200" selected data-i18n="rlOptRfNew">200 — новое/реконструированное здание, рекомендуется (100 ЭРОА)</option>
+            <option value="400" data-i18n="rlOptRfOld">400 — эксплуатируемое здание (200 ЭРОА)</option>
+          </optgroup>
+          <optgroup id="rlGroupWHO" label="WHO (Handbook on Indoor Radon, 2009)">
+            <option value="100" data-i18n="rlOptWhoRec">100 — рекомендуемый уровень</option>
+            <option value="300" data-i18n="rlOptWhoMax">300 — максимальный уровень</option>
+          </optgroup>
+          <optgroup id="rlGroupEPA" label="US EPA">
+            <option value="148" data-i18n="rlOptEpa">148 — action level (4 pCi/L)</option>
+          </optgroup>
+          <optgroup id="rlGroupEU" label="EU (Directive 2013/59/Euratom)">
+            <option value="300" data-i18n="rlOptEu">300 — референтный уровень</option>
+          </optgroup>
         </select>
       </div>
-      <div class="rl-presets" id="rlPresets">
-        <button type="button" class="rl-preset" id="rlPresetNew" data-value="200"><span data-i18n="rlPresetNewLabel">200 — новое здание</span> <span class="rl-preset-tag" data-i18n="rlPresetRec">рекомендуется</span></button>
-        <button type="button" class="rl-preset" id="rlPresetOld" data-value="400"><span data-i18n="rlPresetOldLabel">400 — эксплуатируемое здание</span></button>
-      </div>
-      <p class="hint" data-i18n="hintRl">Норматив на среднегодовую концентрацию. РФ (НРБ-99/2009) задаёт две планки в ОА: 200&nbsp;Бк/м³ для новых/реконструированных зданий (100 ЭРОА) и 400&nbsp;Бк/м³ для уже эксплуатируемых (200 ЭРОА) — выбор кнопками выше. При сомнении в статусе здания рекомендуется более строгая планка, 200. Единицу выберите так же, как для C(t); см. справку ниже.</p>
+      <p class="hint" data-i18n="hintRl">Норматив выбирается из списка — все значения уже приведены к ОА радона (Бк/м³). РФ (НРБ-99/2009) даёт две планки: 200 для новых/реконструированных зданий (100 ЭРОА) и 400 для уже эксплуатируемых (200 ЭРОА); при сомнении в статусе здания рекомендуется более строгая планка — 200. Другие страны и перевод единиц — в справке ниже.</p>
     </div>
   </div>
 
@@ -770,8 +766,11 @@ var I18N = {
     optDay:"сутки", optMonth:"месяцы",
     hintDur:"За сколько усреднено C(t). 1&nbsp;месяц = 30&nbsp;суток (общая ось Табл.1).",
     lblRl:"Норматив C<sub>ну</sub>",
-    hintRl:"Норматив на среднегодовую концентрацию. РФ (НРБ-99/2009) задаёт две планки в ОА: 200&nbsp;Бк/м³ для новых/реконструированных зданий (100 ЭРОА) и 400&nbsp;Бк/м³ для уже эксплуатируемых (200 ЭРОА) — выбор кнопками выше. При сомнении в статусе здания рекомендуется более строгая планка, 200. Единицу выберите так же, как для C(t); см. справку ниже.",
-    rlPresetNewLabel:"200 — новое здание", rlPresetOldLabel:"400 — эксплуатируемое здание", rlPresetRec:"рекомендуется",
+    hintRl:"Норматив выбирается из списка — все значения уже приведены к ОА радона (Бк/м³). РФ (НРБ-99/2009) даёт две планки: 200 для новых/реконструированных зданий (100 ЭРОА) и 400 для уже эксплуатируемых (200 ЭРОА); при сомнении в статусе здания рекомендуется более строгая планка — 200. Другие страны и перевод единиц — в справке ниже.",
+    rlGroupRF:"Россия (НРБ-99/2009)", rlGroupWHO:"ВОЗ (Handbook on Indoor Radon, 2009)", rlGroupEPA:"US EPA", rlGroupEU:"Евросоюз (Directive 2013/59/Euratom)",
+    rlOptRfNew:"200 — новое/реконструированное здание, рекомендуется (100 ЭРОА)", rlOptRfOld:"400 — эксплуатируемое здание (200 ЭРОА)",
+    rlOptWhoRec:"100 — рекомендуемый уровень", rlOptWhoMax:"300 — максимальный уровень",
+    rlOptEpa:"148 — action level (4 pCi/L)", rlOptEu:"300 — референтный уровень",
     hintRlList:"<li><b>РФ</b> (НРБ-99/2009) — единственный из перечисленных, кто нормирует <b>по ЭРОА</b>: эксплуатируемые здания 200 ЭРОА (= 400 ОА при F=0.5), новые/реконструированные 100 ЭРОА (= 200 ОА).</li><li><b>WHO</b> (Handbook on Indoor Radon, 2009) — <b>по ОА</b>: 100 рекомендуемый / 300 максимальный.</li><li><b>US EPA</b> — <b>по ОА</b>: 148 Бк/м³ (= 4 pCi/L), action level.</li><li><b>EU</b> (Council Directive 2013/59/Euratom, BSS) — <b>по ОА</b>: 300, референтный уровень.</li>",
     hintRlNote:"Международная практика (WHO, EPA, EU) нормирует непосредственно объёмную активность радона-222 (ОА)&nbsp;— то, что показывает монитор. РФ нормирует ЭРОА (по дочерним продуктам распада), поэтому российские значения при переводе в ОА удваиваются: 200 ЭРОА ↔ 400 ОА.",
     noteConverted:"Значения приведены к ОА радона (Бк/м³) — единицам, в которых записаны критерии: ЭРОА ×2 (F=0.5), pCi/L ×37.",
@@ -816,7 +815,6 @@ var I18N = {
     warnT12:"свыше 12 месяцев: за пределами таблицы, приняты значения для 12 месяцев (U<sub>V</sub>=0).",
     errCt:"Задайте концентрацию C(t) ≥ 0.",
     errDur:"Задайте длительность t &gt; 0.",
-    errRl:"Задайте норматив C<sub>ну</sub> &gt; 0.",
     errUd:"Задайте инструментальную неопределённость U<sub>и</sub>.",
     errMinNormal:"В нормальном режиме критерии определены от 4 суток (§4.1.5). Увеличьте длительность или выберите ограниченный режим.",
     errMinRestricted:"В ограниченном режиме критерии определены от 2 суток (§4.1.5). Увеличьте длительность."
@@ -943,8 +941,11 @@ var I18N = {
     optDay:"days", optMonth:"months",
     hintDur:"Over what period C(t) is averaged. 1&nbsp;month = 30&nbsp;days (Table 1's common axis).",
     lblRl:"Reference level C<sub>RL</sub>",
-    hintRl:"Reference level for the annual-average concentration. Russia (NRB-99/2009) sets two AC thresholds: 200 Bq/m³ for new/renovated buildings (100 EEC) and 400 Bq/m³ for already-occupied ones (200 EEC) — pick with the buttons above. When the building's status is unclear, the stricter threshold, 200, is recommended. Pick the same unit as for C(t); see the reference below.",
-    rlPresetNewLabel:"200 — new building", rlPresetOldLabel:"400 — occupied building", rlPresetRec:"recommended",
+    hintRl:"The reference level is chosen from a list — all values are already converted to radon activity concentration (Bq/m³). Russia (NRB-99/2009) sets two thresholds: 200 for new/renovated buildings (100 EEC) and 400 for already-occupied ones (200 EEC); when the building's status is unclear, the stricter threshold, 200, is recommended. Other countries and unit conversions are in the reference below.",
+    rlGroupRF:"Russia (NRB-99/2009)", rlGroupWHO:"WHO (Handbook on Indoor Radon, 2009)", rlGroupEPA:"US EPA", rlGroupEU:"EU (Directive 2013/59/Euratom)",
+    rlOptRfNew:"200 — new/renovated building, recommended (100 EEC)", rlOptRfOld:"400 — occupied building (200 EEC)",
+    rlOptWhoRec:"100 — recommended level", rlOptWhoMax:"300 — maximum level",
+    rlOptEpa:"148 — action level (4 pCi/L)", rlOptEu:"300 — reference level",
     hintRlList:"<li><b>Russia</b> (NRB-99/2009) — the only one listed that regulates <b>in EEC</b>: occupied buildings 200 EEC (= 400 AC at F=0.5), new/renovated 100 EEC (= 200 AC).</li><li><b>WHO</b> (Handbook on Indoor Radon, 2009) — <b>in AC</b>: 100 recommended / 300 maximum.</li><li><b>US EPA</b> — <b>in AC</b>: 148 Bq/m³ (= 4 pCi/L), action level.</li><li><b>EU</b> (Council Directive 2013/59/Euratom, BSS) — <b>in AC</b>: 300, reference level.</li>",
     hintRlNote:"International practice (WHO, EPA, EU) regulates radon-222 activity concentration (AC) directly — what the monitor reads. Russia regulates EEC (via decay progeny), so Russian values double when converted to AC: 200 EEC ↔ 400 AC.",
     noteConverted:"Values converted to radon activity concentration (Bq/m³) — the units the criteria are written in: EEC ×2 (F=0.5), pCi/L ×37.",
@@ -989,7 +990,6 @@ var I18N = {
     warnT12:"over 12 months: beyond the table, values for 12 months are used (U<sub>V</sub>=0).",
     errCt:"Enter concentration C(t) ≥ 0.",
     errDur:"Enter duration t &gt; 0.",
-    errRl:"Enter reference level C<sub>RL</sub> &gt; 0.",
     errUd:"Enter instrumental uncertainty U<sub>D</sub>.",
     errMinNormal:"Under normal ventilation the criteria are defined from 4 days (§4.1.5). Increase the duration or select restricted mode.",
     errMinRestricted:"Under restricted ventilation the criteria are defined from 2 days (§4.1.5). Increase the duration."
@@ -1043,8 +1043,11 @@ var SIMPLE = {
     lblDur:"Сколько длился замер",
     hintDur:"Сколько суток (или месяцев) прибор простоял в комнате.",
     lblRl:"Норма",
-    hintRl:"В России для новых или недавно капитально отремонтированных домов — 200 Бк/м³, для домов старой постройки — 400 Бк/м³. Если не уверены — берите 200. Нормы других стран — в справке ниже.",
-    rlPresetNewLabel:"200 — новый дом", rlPresetOldLabel:"400 — старый дом", rlPresetRec:"рекомендуется",
+    hintRl:"Норма выбирается из списка. Для России: 200 — если дом новый или недавно капитально отремонтирован (рекомендуется), 400 — для дома старой постройки. Нормы других стран — в этом же списке и в справке ниже.",
+    rlGroupRF:"Россия", rlGroupWHO:"ВОЗ (Всемирная организация здравоохранения)", rlGroupEPA:"США (EPA)", rlGroupEU:"Евросоюз",
+    rlOptRfNew:"200 — новый или отремонтированный дом (рекомендуется)", rlOptRfOld:"400 — дом старой постройки",
+    rlOptWhoRec:"100 — рекомендуемый уровень", rlOptWhoMax:"300 — максимально допустимый уровень",
+    rlOptEpa:"148 — уровень действия (США)", rlOptEu:"300 — референтный уровень (ЕС)",
     lblUd:"Погрешность прибора",
     unitPct:"%",
     hintUd:"Из паспорта прибора. Если точно не знаете — ставьте 30.",
@@ -1107,8 +1110,11 @@ var SIMPLE = {
     lblDur:"How long the measurement ran",
     hintDur:"How many days (or months) the device stood in the room.",
     lblRl:"The limit",
-    hintRl:"In Russia, for new or recently fully renovated homes — 200 Bq/m³; for older homes — 400 Bq/m³. If unsure, use 200. Other countries' limits are in the reference below.",
-    rlPresetNewLabel:"200 — new home", rlPresetOldLabel:"400 — older home", rlPresetRec:"recommended",
+    hintRl:"Pick the limit from the list. In Russia: 200 for a new or recently fully renovated home (recommended), 400 for an older home. Other countries' limits are in the same list and in the reference below.",
+    rlGroupRF:"Russia", rlGroupWHO:"WHO (World Health Organization)", rlGroupEPA:"US (EPA)", rlGroupEU:"European Union",
+    rlOptRfNew:"200 — new or renovated home (recommended)", rlOptRfOld:"400 — older home",
+    rlOptWhoRec:"100 — recommended level", rlOptWhoMax:"300 — maximum level",
+    rlOptEpa:"148 — action level (US)", rlOptEu:"300 — reference level (EU)",
     lblUd:"Device error",
     unitPct:"%",
     hintUd:"From the device's datasheet. If unsure, use 30.",
@@ -1147,6 +1153,10 @@ function applyLang(lang){
     var key = el.getAttribute("data-i18n");
     if(dict[key]!==undefined) el.innerHTML = dict[key];
   });
+  ["RF","WHO","EPA","EU"].forEach(function(c){
+    var og = document.getElementById("rlGroup"+c);
+    if(og && dict["rlGroup"+c]!==undefined) og.label = dict["rlGroup"+c];
+  });
   document.getElementById("langBtn").textContent = (lang==="ru") ? "EN" : "RU";
   document.getElementById("modeBtn").textContent = (MODE==="simple") ? dict.btnModeSci : dict.btnModeSimple;
   document.body.classList.toggle("simple", MODE==="simple");
@@ -1161,20 +1171,18 @@ function calc(){
   var ctUnit=document.getElementById("ctUnit").value;
   var durV=parseFloat(document.getElementById("dur").value);
   var unit=document.getElementById("durUnit").value;
-  var rlRaw=parseFloat(document.getElementById("rl").value);
-  var rlUnit=document.getElementById("rlUnit").value;
+  var rl=parseFloat(document.getElementById("rl").value);
   var udPct=parseFloat(document.getElementById("ud").value);
 
   var errs=[];
   if(!(ctRaw>=0)) errs.push(L.errCt);
   if(!(durV>0)) errs.push(L.errDur);
-  if(!(rlRaw>0)) errs.push(L.errRl);
   if(!(udPct>=0)) errs.push(L.errUd);
   if(errs.length){ out.innerHTML='<div class="err">'+errs.join("<br>")+'</div>'; return; }
 
-  // Приведение к ОА радона, Бк/м3: ЭРОА×2 (F=0.5, §3 источника), pCi/L×37.
+  // Приведение измеренной концентрации к ОА радона, Бк/м3: ЭРОА×2 (F=0.5, §3 источника), pCi/L×37.
+  // Норматив уже в ОА — выбирается из списка стран/планок, свободный ввод не допускается.
   var ct = toBqOA(ctRaw, ctUnit);
-  var rl = toBqOA(rlRaw, rlUnit);
 
   var tDays = unit==="month" ? durV*30 : durV;
   var ud = udPct/100;
@@ -1214,7 +1222,7 @@ function calc(){
   }
 
   var modeLabel = mode==="normal" ? L.optModeNormal : L.optModeRestricted;
-  var converted = (ctUnit!=="bq" || rlUnit!=="bq");
+  var converted = (ctUnit!=="bq");
   var chips =
     '<span class="chip">'+L.chipMode+' = <b>'+modeLabel+'</b></span>'+
     (converted?'<span class="chip">C(t) = <b>'+fmt(ct,1)+'</b> '+L.bq+' · C'+(LANG==="ru"?'<sub>ну</sub>':'<sub>RL</sub>')+' = <b>'+fmt(rl,1)+'</b> '+L.bq+'</span>':'')+
@@ -1280,13 +1288,6 @@ function calc(){
       noteHtml+
       warnHtml+
     '</div>';
-  updateRlPresetActive();
-}
-
-function updateRlPresetActive(){
-  var oa = toBqOA(parseFloat(document.getElementById("rl").value), document.getElementById("rlUnit").value);
-  document.getElementById("rlPresetNew").classList.toggle("active", Math.abs(oa-200)<0.5);
-  document.getElementById("rlPresetOld").classList.toggle("active", Math.abs(oa-400)<0.5);
 }
 
 if(MODE === "simple"){
@@ -1295,18 +1296,10 @@ if(MODE === "simple"){
   if(eroaOpt) eroaOpt.parentNode.removeChild(eroaOpt);
 }
 
-["mode","ct","ctUnit","dur","durUnit","rl","rlUnit","ud"].forEach(function(id){
+["mode","ct","ctUnit","dur","durUnit","rl","ud"].forEach(function(id){
   var el=document.getElementById(id);
   el.addEventListener("input",calc);
   el.addEventListener("change",calc);
-});
-
-["rlPresetNew","rlPresetOld"].forEach(function(id){
-  document.getElementById(id).addEventListener("click",function(){
-    document.getElementById("rl").value = this.getAttribute("data-value");
-    document.getElementById("rlUnit").value = "bq";
-    calc();
-  });
 });
 
 document.getElementById("langBtn").addEventListener("click",function(){
